@@ -9,7 +9,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 @Entity
-public class professor {
+public class Professor {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,7 +23,7 @@ public class professor {
 
 	@ManyToOne(optional = false)
 	@JoinColumn(name = "departmentId", updatable = false, insertable = false)
-	private department department;
+	private Department department;
 
 	public Long getId() {
 		return id;
