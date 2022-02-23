@@ -1,6 +1,7 @@
 package com.project.professor.allocation.repository;
 
 import java.text.ParseException;
+import java.util.List;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,97 +11,79 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.TestPropertySource;
 
+import com.project.professor.allocation.entity.Course;
+
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = Replace.NONE)
 @Rollback(false)
 @TestPropertySource(locations = "classpath:application.properties")
 public class CourseRepositoryTest {
-	
+
 	@Autowired
-	CourseRepository courseReporitory;
-	
+	CourseRepository courseRepository;
+
 	@Test
-    public void findAll() {
-        // Act
-        
+	public void findAll() {
+		// Act
+		List<Course> course = courseRepository.findAll();
 
-        // Print
-        
-    }
+		// Print
+		System.out.println(course);
 
-    @Test
-    public void findById() {
-        // Arrange
-        
+	}
 
-        // Act
-        
+	@Test
+	public void findById() {
+		// Arrange
+		Course course = courseRepository.findById(1L).orElse(null);
 
-        // Print
-        
-    }
+		// Act
 
-    @Test
-    public void findByProfessorId() {
-        // Arrange
-        
+		// Print
+		System.out.println(course);
+	}
 
-        // Act
-        
+	@Test
+	public void save_create() throws ParseException {
+		// Arrange
+		Course course = new Course();
 
-        // Print
-        
-    }
+		course.setName("TI");
+		// Act
+		Course courses = courseRepository.save(course);
 
-    @Test
-    public void findByCourseId() {
-        // Arrange
-        
+		// Print
+		System.out.println(courses);
 
-        // Act
-        
+	}
 
-        // Print
-        
-    }
+	@Test
+	public void update() throws ParseException {
+		// Arrange
+		Course course = new Course();
 
-    @Test
-    public void save_create() throws ParseException {
-        // Arrange
-        
+		course.setName("TI");
+		course.setId(1L);
+		// Act
+		Course courses = courseRepository.save(course);
 
-        // Act
-        
+		// Print
+		System.out.println(courses);
 
-        // Print
-        
-    }
+	}
 
-    @Test
-    public void save_update() throws ParseException {
-        // Arrange
-        
+	@Test
+	public void deleteById() {
+		// Arrange
+		courseRepository.deleteById(1L);
+		// Act
 
-        // Act
-        
+	}
 
-        // Print
-        
-    }
+	@Test
+	public void deleteAll() {
+		// Act
+		courseRepository.deleteAllInBatch();
 
-    @Test
-    public void deleteById() {
-        // Arrange
-        
-
-        // Act
-        
-    }
-
-    @Test
-    public void deleteAll() {
-        // Act
-        
-    }
-
+	}
 }

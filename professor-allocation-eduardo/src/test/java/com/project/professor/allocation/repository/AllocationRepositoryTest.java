@@ -13,6 +13,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.DayOfWeek;
 import java.util.List;
+import java.util.Optional;
 
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = Replace.NONE)
@@ -28,9 +29,10 @@ public class AllocationRepositoryTest {
 	@Test
 	public void findAll() {
 		// Act
-		List<Allocation> allocation = allocationRepository.findAll();
+		List<Allocation> allocations = allocationRepository.findAll();
 
 		// Print
+		System.out.println(allocations);
 
 	}
 
@@ -39,8 +41,11 @@ public class AllocationRepositoryTest {
 		// Arrange
 
 		// Act
+		Optional <Allocation> optional = allocationRepository.findById(2L);
 
 		// Print
+		Allocation alloc = optional.orElse(null);
+		System.out.println(alloc);
 
 	}
 
@@ -106,11 +111,13 @@ public class AllocationRepositoryTest {
 
 		// Act
 		allocationRepository.deleteById(2L);
+
 	}
 
 	@Test
 	public void deleteAll() {
 		// Act
+		allocationRepository.deleteAllInBatch();
 
 	}
 }
