@@ -35,36 +35,40 @@ public class AllocationService {
 	// CRUD: CREATE
 	public Allocation create(Allocation allocation) {
 		allocation.setId(null);
-		Allocation allocationNew = allocationRepository.save(allocation);
-		return allocationNew;
+		return saveInternal(allocation);
 	}
 
 	// CRUD: UPDATE
 	public Allocation update(Allocation allocation) {
 		Long id = allocation.getId();
 		if (id != null && allocationRepository.existsById(id)) {
-			Allocation allocationNew = allocationRepository.save(allocation);
-			return allocationNew;
+			return saveInternal(allocation);
 		} else {
 			return null;
 		}
 	}
-	
-	//CRUD : DELETE
-	public void deleteById(Long id)
-	{
-		if (allocationRepository.existsById(id))
-		{
+
+	private Allocation saveInternal(Allocation allocation) {
+		if (hasCollision(allocation)) {
+			throw new RuntimeException();
+		} else {
+			Allocation allocationNew = allocationRepository.save(allocation);
+		return saveInternal(allocation);
+		}
+	}
+
+	// CRUD : DELETE by ID
+	public void deleteById(Long id) {
+		if (allocationRepository.existsById(id)) {
 			allocationRepository.deleteById(id);
 		}
 	}
-	
-	//CRUD: DELETE all
-	public void deleteAll()
-	{
+
+	// CRUD: DELETE all
+	public void deleteAll() {
 		allocationRepository.deleteAllInBatch();
 	}
-	
+
 	boolean hasCollision(Allocation newAllocation) {
 		boolean hasCollision = false;
 
