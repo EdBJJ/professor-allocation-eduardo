@@ -53,7 +53,7 @@ public class AllocationService {
 			throw new RuntimeException();
 		} else {
 			Allocation allocationNew = allocationRepository.save(allocation);
-		return saveInternal(allocation);
+			return allocationNew;
 		}
 	}
 
