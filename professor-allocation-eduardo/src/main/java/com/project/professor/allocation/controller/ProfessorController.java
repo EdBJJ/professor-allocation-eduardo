@@ -12,5 +12,5 @@ public class ProfessorController {
 		super();
 		this.professorService = professorService;
 	}
-	
+
 }
